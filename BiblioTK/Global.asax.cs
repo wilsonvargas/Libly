@@ -1,4 +1,4 @@
-﻿using BiblioTK.Models;
+﻿using Libly.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace BiblioTK
+namespace Libly
 {
     public class MvcApplication : System.Web.HttpApplication
     {

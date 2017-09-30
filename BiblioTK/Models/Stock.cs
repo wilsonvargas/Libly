@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BiblioTK.Models
+namespace Libly.Models
 {
     using System;
     using System.Collections.Generic;

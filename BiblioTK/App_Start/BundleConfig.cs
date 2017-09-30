@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace BiblioTK
+namespace Libly
 {
     public class BundleConfig
     {

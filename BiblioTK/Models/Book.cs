@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BiblioTK.Models
+namespace Libly.Models
 {
     using System;
     using System.Collections.Generic;
@@ -34,9 +34,11 @@ namespace BiblioTK.Models
         public virtual Genre Genre { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stock> Stocks { get; set; }
+
         [NotMapped]
         public List<SelectListItem> Genres { get; set; }
         [NotMapped]
         public int NumOfStock { get; set; }
+
     }
 }

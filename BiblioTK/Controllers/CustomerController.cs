@@ -1,4 +1,4 @@
-﻿using BiblioTK.Models;
+﻿using Libly.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 
-namespace BiblioTK.Controllers
+namespace Libly.Controllers
 {
     public class CustomerController : Controller
     {
