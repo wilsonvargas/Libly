@@ -1,0 +1,106 @@
+﻿@using PagedList;
+
+@using PagedList.Mvc;
+@model IPagedList<BiblioTK.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+@if (Convert.ToBoolean(HttpContext.Current.Session["isAdmin"]))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
+
+<div class="row" align="right">
+
+    @using (Html.BeginForm("List", "Book", FormMethod.Get, new { @class = "form-inline" }))
+    {
+
+        @Html.TextBox("search", null, new { @class = "form-control", placeholder = "Search..." })
+        <button type="submit" class="btn btn-default">Search</button>
+
+    }
+
+</div>
+
+
+@foreach (var item in Model)
+{
+    <ul class="row list-book-item">
+        <li class="book">
+            <div class="col-lg-1 col-xs-3">
+                <a title="@item.Title" href="@Url.Action("Details","Book",new { id=item.Id })">
+                    <img class="img-responsive" src="@Url.Content(item.Image)" alt="@item.Title" />
+                </a>
+
+            </div>
+            <div class="col-md-8 col-xs-9">
+                <h3>
+                    <a title="@item.Title" href="@Url.Action("Details","Book",new { id=item.Id })">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+
+                </h3>
+                <dl>
+                    <dt>
+                        @if (item.Stocks.Where(x => x.IsAvailable == true).ToList().Count <= 0)
+                        {
+                            <span class="badge bg-danger">Unavailable</span>
+                            
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+
+                    </dt>
+                    <dt>
+                        <strong>Author: </strong> @Html.DisplayFor(modelItem => item.Writer)
+                    </dt>
+                    <dt>
+                        <strong>Genre: </strong> @Html.DisplayFor(modelItem => item.Genre.Name)
+                    </dt>
+                    <dt>
+                        <strong>Description: </strong> @Html.DisplayFor(modelItem => item.Description)
+                    </dt>
+
+                </dl>
+            </div>
+            @if (item.Stocks.Where(x => x.IsAvailable == true).ToList().Count <= 0)
+            {
+                <div class="col-md-2 col-xs-12">
+
+                    <button href="http://google.com" class="btn btn-success" disabled>Buy or Rent</button>
+                </div>
+                <div class="col-md-1 col-xs-12">
+                    <button  class="btn btn-default" disabled>Sell</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2 col-xs-12">
+
+                    <button class="btn btn-success" onclick="window.location.href='@Url.Action("Rent", "Rental", new { id = item.Id })'">Buy or Rent</button>
+                </div>
+                <div class="col-md-1 col-xs-12">
+                    <button href="#" class="btn btn-default">Sell</button>
+                </div>
+            }
+            
+        </li>
+
+    </ul>
+
+}
+
+@Html.PagedListPager(Model, pageNumber => Url.Action("List", new
+{
+    pageNumber
+}))

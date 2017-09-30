@@ -1,0 +1,50 @@
+﻿@model BiblioTK.Models.Rental
+
+@{
+    ViewBag.Title = "Return";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    <a title="@Model.Stock.Book.Title">
+        @Html.DisplayFor(modelItem => Model.Stock.Book.Title)
+    </a>
+</h2>
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row list-book-item">
+            <div class="book">
+                <div class="col-lg-3 col-xs-3">
+                    <a title="@Model.Stock.Book.Title">
+                        <img class="img-responsive" src="@Url.Content(Model.Stock.Book.Image)" alt="@Model.Stock.Book.Title" />
+                    </a>
+
+                </div>
+                <div class="col-md-8 col-xs-9">
+
+                    <dl>
+                        <dt>
+                            <strong>Author: </strong> @Html.DisplayFor(modelItem => Model.Stock.Book.Writer)
+                        </dt>
+                        <dt>
+                            <strong>Genre: </strong> @Html.DisplayFor(modelItem => Model.Stock.Book.Genre.Name)
+                        </dt>
+                        <dt>
+                            <strong>Description: </strong> @Html.DisplayFor(modelItem => Model.Stock.Book.Description)
+                        </dt>
+                    </dl>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-success">Return</button>
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+

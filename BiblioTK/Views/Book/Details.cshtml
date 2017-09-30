@@ -1,0 +1,77 @@
+﻿@model BiblioTK.Models.Book
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    <a title="@Model.Title">
+        @Html.DisplayFor(modelItem => Model.Title)
+    </a>
+</h2>
+
+<div>
+    <div class="row list-book-item">
+        <div class="book">
+            <div class="col-lg-3 col-xs-3">
+                <a title="@Model.Title">
+                    <img class="img-responsive" src="@Url.Content(Model.Image)" alt="@Model.Title" />
+                </a>
+
+            </div>
+            <div class="col-md-8 col-xs-9">
+
+                <dl>
+                    <dt>
+                        <strong>Author: </strong> @Html.DisplayFor(modelItem => Model.Writer)
+                    </dt>
+                    <dt>
+                        <strong>Genre: </strong> @Html.DisplayFor(modelItem => Model.Genre.Name)
+                    </dt>
+                    <dt>
+                        <strong>Description: </strong> @Html.DisplayFor(modelItem => Model.Description)
+                    </dt>
+                    <dt>
+                        @if (Model.Stocks.Where(x => x.IsAvailable == true).ToList().Count <= 0)
+                        {
+                            <span class="badge bg-danger">Unavailable</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Available</span>
+                        }
+                    </dt>
+                </dl>
+            </div>
+            @if (Model.Stocks.Where(x => x.IsAvailable == true).ToList().Count <= 0)
+            {
+                <div class="col-md-2">
+                    <button class="btn btn-success" disabled>Buy or Rent</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-default" disabled>Sell</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2">
+                    <button class="btn btn-success" onclick="window.location.href='@Url.Action("Rent", "Rental", new { id = Model.Id })'">Buy or Rent</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-default">Sell</button>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+<p>
+    @if (Convert.ToBoolean(HttpContext.Current.Session["isAdmin"]))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    }
+
+    @Html.ActionLink("Back to List", "List")
+</p>

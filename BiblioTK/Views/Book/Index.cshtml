@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BiblioTK.Models.Book>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Lib.ly</h1>
+    <p class="lead">
+        Lib.ly provides students with affordable textbooks, empowering more than a million students to study cheaper. Take part in the sustainable textbook economy.
+        Rent your textbooks.
+    </p>
+    <div class="row" align="center">
+        @using (Html.BeginForm("List", "Book", FormMethod.Get, new { @class = "form-inline" }))
+        {
+
+            @Html.TextBox("search", null, new { @class = "form-control", placeholder = "Search..." })
+            <button type="submit" class="btn btn-primary">Search</button>
+
+        }
+    </div>
+</div>
+<h2>Libros populares.</h2>
+<div class="row">
+    @foreach (var item in Model.Take(3))
+    {
+        <div class="col-md-4">
+            <div class="col-lg-5 col-xs-5">
+                <a title="@item.Title" href="@Url.Action("Details","Book",new { id=item.Id })">
+                    <img class="img-responsive" src="@Url.Content(item.Image)" alt="@item.Title" />
+                </a>
+            </div>
+            <div class="col-md-7 col-xs-8">
+                <a title="@item.Title" href="@Url.Action("Details","Book",new { id=item.Id })">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a>
+                <dl>
+                    <dt>
+                        <strong>Author: </strong> @Html.DisplayFor(modelItem => item.Writer)
+                    </dt>
+                    <dt>
+                        <strong>Genre: </strong> @Html.DisplayFor(modelItem => item.Genre.Name)
+                    </dt>
+                </dl>
+            </div>
+        </div>
+    }
+</div>

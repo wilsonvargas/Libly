@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a07396f2832c47bfbf6385f0010430c9" Name="Diagram1">
+        <EntityTypeShape EntityType="Models.Book" Width="1.5" PointX="11.625" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Customer" Width="1.5" PointX="6.625" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Genre" Width="1.5" PointX="11.625" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Rental" Width="1.5" PointX="6.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.Stock" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Models.sysdiagram" Width="1.5" PointX="3.375" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="Models.FK_Book_Genre" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Stock_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Rental_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="Models.FK_Rental_Stock" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

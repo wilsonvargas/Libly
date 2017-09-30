@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BiblioTK.Models.Rental>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Rentals</h2>
+
+@foreach (var item in Model)
+{
+    <ul class="row list-book-item">
+        <li class="book">
+            <div class="col-lg-1 col-xs-3">
+                <a title="@item.Stock.Book.Title" href="@Url.Action("Details", "Book", new { id = item.Stock.Book.Id })">
+                    <img class="img-responsive" src="@Url.Content(item.Stock.Book.Image)" alt="@item.Stock.Book.Title" />
+                </a>
+            </div>
+            <div class="col-md-8 col-xs-9">
+                <h3>
+                    <a title="@item.Stock.Book.Title" href="@Url.Action("Details","Book",new { id=item.Stock.Book.Id })">
+                        @Html.DisplayFor(modelItem => item.Stock.Book.Title)
+                    </a>
+                </h3>
+                <dl>
+                    <dt>
+                        <strong>Author: </strong> @Html.DisplayFor(modelItem => item.Stock.Book.Writer)
+                    </dt>
+                    <dt>
+                        <strong>Genre: </strong> @Html.DisplayFor(modelItem => item.Stock.Book.Genre.Name)
+                    </dt>
+                    <dt>
+                        <strong>Rental Date: </strong> @Html.DisplayFor(modelItem => item.RentalDate)
+                    </dt>
+                    <dt>
+                        @if (item.Status == "Borrowed")
+                        {
+                            <strong>Status: </strong> <span class="badge bg-danger">Borrowed</span>
+
+                        }
+                        else
+                        {
+                            <strong>Status: </strong> <span class="badge bg-success">Returned</span>
+                        }
+                    </dt>
+                </dl>
+            </div>
+
+            <div class="col-md-2 col-xs-12">
+                @if (item.Status == "Borrowed")
+                {
+                    <button class="btn btn-success" onclick="window.location.href='@Url.Action("Return", "Rental", new { id = item.Id })'">Return</button>
+                }
+                else
+                {
+                    <button class="btn btn-success" disabled onclick="window.location.href='@Url.Action("Return", "Rental", new { id = item.Id })'">Return</button>
+                }
+            </div>
+        </li>
+    </ul>
+
+}
