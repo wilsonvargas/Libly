@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libly", "BiblioTK\Libly.csproj", "{B8DA7566-983F-4A48-BDEA-82F089D257A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Libly", "Libly\Libly.csproj", "{B8DA7566-983F-4A48-BDEA-82F089D257A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

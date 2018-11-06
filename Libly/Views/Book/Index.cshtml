@@ -13,8 +13,8 @@
         @using (Html.BeginForm("List", "Book", FormMethod.Get, new { @class = "form-inline" }))
         {
 
-            @Html.TextBox("search", null, new { @class = "form-control", placeholder = "Search..." })
-            <button type="submit" class="btn btn-primary">Search</button>
+            @Html.TextBox("search", null, new { @class = "form-control", placeholder = "Search...", style="width:80%" })
+            <button type="submit" class="btn btn-primary" style="width:15%">Search</button>
 
         }
     </div>

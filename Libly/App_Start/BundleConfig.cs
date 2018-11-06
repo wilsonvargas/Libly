@@ -26,8 +26,7 @@ namespace Libly
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-flaty.css",
-                      "~/Content/themes/base/jquery-ui.min.css",
-                      "~/Content/site.css"));
+                      "~/Content/themes/base/jquery-ui.min.css"));
         }
     }
 }

@@ -11,25 +11,7 @@ namespace Libly.Controllers
 {
     public class BookController : Controller
     {
-        private Entities db = new Entities();
-        // GET: Book
-        public ActionResult Index()
-        {
-
-            return View(db.Books.ToList());
-        }
-
-        public ActionResult List(string search, int? pageNumber)
-        {
-            if (search != null)
-            {
-                return View(db.Books.Where(x => x.Title.Contains(search) || x.Writer.Contains(search) || x.Genre.Name.Contains(search)).ToList().ToPagedList(pageNumber ?? 1, 3));
-            }
-            else
-            {
-                return View(db.Books.ToList().ToPagedList(pageNumber ?? 1, 5));
-            }
-        }
+        private ApplicationContext db = new ApplicationContext();
 
         public ActionResult Create()
         {
@@ -63,6 +45,41 @@ namespace Libly.Controllers
             return View(book);
         }
 
+        public ActionResult Delete(int id)
+        {
+            var book = db.Books.Find(id);
+            if (book != null)
+            {
+                return View(book);
+            }
+            throw new HttpException(404, "Book not found");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id)
+        {
+            var book = db.Books.Find(Convert.ToInt32(id));
+            if (book != null)
+            {
+                db.Books.Remove(book);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            throw new HttpException(404, "Book not found");
+        }
+
+        public ActionResult Details(int id)
+        {
+            var book = db.Books.Find(id);
+            if (book != null)
+            {
+                return View(book);
+            }
+
+            throw new HttpException(404, "Book not found!");
+        }
+
         public ActionResult Edit(int id)
         {
             List<SelectListItem> selectedItems = new List<SelectListItem>();
@@ -90,43 +107,22 @@ namespace Libly.Controllers
             return View(book);
         }
 
-        public ActionResult Details(int id)
+        // GET: Book
+        public ActionResult Index()
         {
-            var book = db.Books.Find(id);
-            if (book != null)
-            {
-                return View(book);
-            }
-
-            throw new HttpException(404, "Book not found!");
+            return View(db.Books.ToList());
         }
 
-        public ActionResult Delete(int id)
+        public ActionResult List(string search, int? pageNumber)
         {
-            var book = db.Books.Find(id);
-            if (book != null)
+            if (search != null)
             {
-                return View(book);
+                return View(db.Books.Where(x => x.Title.Contains(search) || x.Writer.Contains(search) || x.Genre.Name.Contains(search)).ToList().ToPagedList(pageNumber ?? 1, 3));
             }
-            throw new HttpException(404, "Book not found");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id)
-        {
-            var book = db.Books.Find(Convert.ToInt32(id));
-            if (book != null)
+            else
             {
-                db.Books.Remove(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return View(db.Books.ToList().ToPagedList(pageNumber ?? 1, 5));
             }
-            throw new HttpException(404, "Book not found");
         }
-
-
-
-
     }
 }

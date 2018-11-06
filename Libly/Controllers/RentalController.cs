@@ -10,8 +10,9 @@ namespace Libly.Controllers
 {
     public class RentalController : Controller
     {
-        private Entities db = new Entities();
-        int userId;
+        private ApplicationContext db = new ApplicationContext();
+        private int userId;
+
         // GET: Rental
         public ActionResult Index()
         {
@@ -35,7 +36,6 @@ namespace Libly.Controllers
             rental.Stock = stock;
             return View(rental);
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,6 +86,5 @@ namespace Libly.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
     }
 }

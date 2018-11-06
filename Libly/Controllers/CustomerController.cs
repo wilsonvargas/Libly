@@ -12,25 +12,12 @@ namespace Libly.Controllers
 {
     public class CustomerController : Controller
     {
-        private Entities db = new Entities();
-        // GET: Customer
-        public ActionResult Index()
-        {
-            if (Session["UserID"] != null)
-            {
-                return View(db.Customers);
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }
+        private ApplicationContext db = new ApplicationContext();
 
         public ActionResult Create()
         {
             return View();
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,37 +32,6 @@ namespace Libly.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Customer");
             }
-            return View(customer);
-        }
-
-
-        public ActionResult Edit(int id)
-        {
-
-            var customer = db.Customers.Find(id);
-            if (customer != null)
-            {
-                return View(customer);
-            }
-            throw new HttpException(404, "Customer not found!");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(customer);
-        }
-
-        public ActionResult Detail(int id)
-        {
-            var customer = db.Customers.Find(id);
             return View(customer);
         }
 
@@ -97,6 +53,48 @@ namespace Libly.Controllers
                 return RedirectToAction("Index");
             }
             throw new HttpException(404, "Customer not found!");
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var customer = db.Customers.Find(id);
+            return View(customer);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = db.Customers.Find(id);
+            if (customer != null)
+            {
+                return View(customer);
+            }
+            throw new HttpException(404, "Customer not found!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(customer).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(customer);
+        }
+
+        // GET: Customer
+        public ActionResult Index()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View(db.Customers);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         public ActionResult Login()
@@ -126,9 +124,10 @@ namespace Libly.Controllers
             return View(customer);
         }
 
-        public ActionResult Logout() {
+        public ActionResult Logout()
+        {
             System.Web.HttpContext.Current.Session.Clear();
-            return RedirectToAction("Index","Book");
+            return RedirectToAction("Index", "Book");
         }
     }
 }
